@@ -1,98 +1,85 @@
-    
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            // Validaciones
-            if(username === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Por favor ingresa tu usuario',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    backdrop: `
-                        rgba(0,0,123,0.4)
-                        url("/images/nyan-cat.gif")
-                        left top
-                        no-repeat
-                    `,
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                });
-                return;
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const inputs = document.querySelectorAll('.input-group input');
+    const loginBtn = document.querySelector('.btn-login');
+
+    // Evento de envío del formulario con validaciones personalizadas
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // Validación: campo usuario vacío
+        if (!username) {
+            showAlert('error', 'Oops...', 'Por favor ingresa tu usuario');
+            return;
+        }
+
+        // Validación: campo contraseña vacío
+        if (!password) {
+            showAlert('error', 'Oops...', 'Por favor ingresa tu contraseña');
+            return;
+        }
+
+        // Validación: longitud mínima de la contraseña
+        if (password.length < 6) {
+            showAlert('warning', 'Contraseña muy corta', 'Debe tener al menos 6 caracteres');
+            return;
+        }
+
+        // Simulación de login exitoso
+        Swal.fire({
+            title: '¡Bienvenido!',
+            text: 'Inicio de sesión exitoso',
+            icon: 'success',
+            background: 'rgba(255, 255, 255, 0.9)',
+            timer: 2000,
+            timerProgressBar: true,
+            showClass: {
+                popup: 'animate__animated animate__zoomIn'
+            },
+            didOpen: () => {
+                Swal.showLoading();
             }
-            
-            if(password === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Por favor ingresa tu contraseña',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    showClass: {
-                        popup: 'animate__animated animate__shakeX'
-                    }
-                });
-                return;
+        }).then(() => {
+            window.location.href = "#";
+        });
+    });
+
+    // Mostrar alertas personalizadas con SweetAlert2
+    function showAlert(icon, title, text) {
+        Swal.fire({
+            icon,
+            title,
+            text,
+            background: 'rgba(255, 255, 255, 0.9)',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
             }
-            
-            if(password.length < 6) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Contraseña muy corta',
-                    text: 'La contraseña debe tener al menos 6 caracteres',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    showClass: {
-                        popup: 'animate__animated animate__pulse'
-                    }
-                });
-                return;
-            }
-            
-            // Simulación de login exitoso
-            Swal.fire({
-                title: '¡Bienvenido!',
-                text: 'Inicio de sesión exitoso',
-                icon: 'success',
-                background: 'rgba(255, 255, 255, 0.9)',
-                showClass: {
-                    popup: 'animate__animated animate__zoomIn'
-                },
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            }).then(() => {
-                // Redirección después del login (simulado)
-                window.location.href = "#";
-            });
         });
-        
-        // Efecto hover dinámico para los inputs
-        const inputs = document.querySelectorAll('.input-group input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.querySelector('i').style.color = '#23d5ab';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.querySelector('i').style.color = '#fff';
-            });
+    }
+
+    // Efecto visual al enfocar y desenfocar los inputs
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.querySelector('i').style.color = '#23d5ab';
         });
-        
-        // Animación adicional para el botón de login
-        const loginBtn = document.querySelector('.btn-login');
-        loginBtn.addEventListener('mouseenter', function() {
-            this.style.letterSpacing = '1px';
+        input.addEventListener('blur', () => {
+            input.parentElement.querySelector('i').style.color = '#fff';
         });
-        
-        loginBtn.addEventListener('mouseleave', function() {
-            this.style.letterSpacing = 'normal';
-        });
-   
+    });
+
+    // Efecto visual para el botón de login al pasar el cursor
+    loginBtn.addEventListener('mouseenter', () => {
+        loginBtn.style.letterSpacing = '1px';
+    });
+
+    loginBtn.addEventListener('mouseleave', () => {
+        loginBtn.style.letterSpacing = 'normal';
+    });
+});
