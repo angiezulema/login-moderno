@@ -1,21 +1,20 @@
 # Login Moderno
 
-Este proyecto implementa una interfaz de inicio de sesión moderna con efectos visuales, validación y notificaciones dinámicas.
+Proyecto de formulario de inicio de sesión con interfaz moderna y validaciones dinámicas.
 
 ## Refactorización realizada
 
-- Separación del código HTML, CSS y JavaScript.
-- Limpieza de validaciones redundantes.
-- Mejora en la estructura visual del archivo.
-- Modularización de funciones y eventos.
+- Separación del código HTML, CSS y JavaScript en archivos independientes.
+- Limpieza visual del archivo HTML (estructura clara y modular).
+- Validaciones mejoradas para campos vacíos y contraseñas inseguras.
+- Eliminación de funciones redundantes y uso de funciones reutilizables.
 
-## Errores detectados y corregidos
+## Simulación de monitoreo
 
-- Validación incompleta de campos.
-- Script embebido dificultaba mantenibilidad.
-- CSS inline generaba problemas de escalabilidad.
+- Se utilizaron `console.log` y validaciones con `SweetAlert2`.
+- Se observó el comportamiento en consola para detectar entradas inválidas.
 
-## Instrucciones de uso
+## Capturas y evidencia
 
-1. Clonar el repositorio.
-2. Abrir `index.html` en un navegador moderno.
+- Commit inicial: subida del proyecto refactorizado.
+- Capturas de consola con errores de validación (usuario vacío, contraseña corta).
